@@ -86,14 +86,16 @@
       const menu = document.querySelector("#menu"), toggle = document.querySelector("#menu-toggle");
       toggle.addEventListener("click", () => { menu.classList.toggle("hidden"); toggle.setAttribute("aria-expanded", String(!menu.classList.contains("hidden"))); });
       document.querySelectorAll(".filter-btn").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".filter-btn").forEach(b => b.className = "filter-btn border border-ink px-4 py-2 text-xs"); button.className = "filter-btn bg-ink px-4 py-2 text-xs text-white"; document.querySelectorAll(".gallery-item").forEach(item => item.classList.toggle("hidden", button.dataset.filter !== "all" && item.dataset.category !== button.dataset.filter)); }));
-      const lightbox = document.querySelector("#lightbox"), image = document.querySelector("#lightbox-image");
-      document.querySelectorAll(".gallery-item").forEach(item => item.addEventListener("click", () => { image.src = item.dataset.image; image.alt = item.dataset.alt; lightbox.showModal(); }));
+      const lightbox = document.querySelector("#lightbox"), image = document.querySelector("#lightbox-image"); let lightboxTrigger;
+      document.querySelectorAll(".gallery-item").forEach(item => item.addEventListener("click", () => { lightboxTrigger = item; image.src = item.dataset.image; image.alt = item.dataset.alt; lightbox.showModal(); }));
       document.querySelector("#lightbox-close").addEventListener("click", () => lightbox.close());
       lightbox.addEventListener("click", event => { if (event.target === lightbox) lightbox.close(); });
-      const reviews = [...document.querySelectorAll(".review")], dots = [...document.querySelectorAll(".review-dot")]; let reviewIndex = 0;
+      lightbox.addEventListener("close", () => lightboxTrigger?.focus());
+      const reviews = [...document.querySelectorAll(".review")], dots = [...document.querySelectorAll(".review-dot")]; let reviewIndex = 0, reviewTimer;
       function showReview(index) { reviews.forEach((review, i) => review.classList.toggle("hidden", i !== index)); dots.forEach((dot, i) => { dot.classList.toggle("bg-ink", i === index); dot.classList.toggle("bg-ink/30", i !== index); }); reviewIndex = index; }
-      dots.forEach((dot, i) => dot.addEventListener("click", () => showReview(i))); setInterval(() => showReview((reviewIndex + 1) % reviews.length), 6000);
-      document.querySelector("#booking-form").addEventListener("submit", event => { event.preventDefault(); const form = event.currentTarget, status = document.querySelector("#form-status"); if (!form.checkValidity()) { form.reportValidity(); return; } const data = new FormData(form); const subject = encodeURIComponent(`Pulmapäring: ${data.get("name")}`); const body = encodeURIComponent(`Nimi: ${data.get("name")}\nE-post: ${data.get("email")}\nKuupäev: ${data.get("date")}\n\n${data.get("message")}`); status.textContent = "Aitäh! Avame teie e-posti programmi päringu saatmiseks."; status.className = "text-sm text-white"; window.location.href = `mailto:tere@meiepaev.ee?subject=${subject}&body=${body}`; });
+      function startReviewTimer() { clearInterval(reviewTimer); reviewTimer = setInterval(() => showReview((reviewIndex + 1) % reviews.length), 6000); }
+      dots.forEach((dot, i) => dot.addEventListener("click", () => { showReview(i); startReviewTimer(); })); startReviewTimer();
+      document.querySelector("#booking-form").addEventListener("submit", event => { event.preventDefault(); const form = event.currentTarget, status = document.querySelector("#form-status"); if (!form.checkValidity()) { form.reportValidity(); return; } const data = new FormData(form); const subject = encodeURIComponent(`Pulmapäring: ${data.get("name")}`); const body = encodeURIComponent(`Nimi: ${data.get("name")}\nE-post: ${data.get("email")}\nKuupäev: ${data.get("date")}\n\n${data.get("message")}`); status.textContent = "Aitäh! Avame teie e-posti programmi päringu saatmiseks."; status.className = "text-sm text-white"; form.reset(); window.location.href = `mailto:tere@meiepaev.ee?subject=${subject}&body=${body}`; setTimeout(() => status.className = "hidden text-sm", 5000); });
       document.querySelector("#year").textContent = new Date().getFullYear();
     </script>
   </body>
