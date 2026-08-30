@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="et">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Meie Päev — ajatu ja ehe pulmafotograafia." />
+    <title>Meie Päev — Pulmafotograaf</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body class="bg-cream font-sans text-ink antialiased">
+    <header class="absolute inset-x-0 top-0 z-30 text-white">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-8" aria-label="Peamenüü">
+        <a href="#" class="font-display text-2xl tracking-wide">Meie Päev</a>
+        <button id="menu-toggle" class="rounded p-2 md:hidden" aria-label="Ava menüü" aria-expanded="false">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div id="menu" class="absolute left-0 right-0 top-full hidden bg-ink px-6 py-5 md:static md:flex md:items-center md:gap-8 md:bg-transparent md:p-0">
+          <a href="#galerii" class="block py-2 text-sm hover:text-blush">Galerii</a><a href="#teenused" class="block py-2 text-sm hover:text-blush">Teenused</a><a href="#tagasiside" class="block py-2 text-sm hover:text-blush">Tagasiside</a>
+          <a href="#broneeri" class="mt-2 inline-block border border-white px-4 py-2 text-sm transition hover:bg-white hover:text-ink md:mt-0">Broneeri kuupäev</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="relative flex min-h-screen items-end overflow-hidden bg-ink">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85" alt="Paar pulmapäeval" class="absolute inset-0 h-full w-full object-cover opacity-75" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+        <div class="relative mx-auto w-full max-w-7xl px-6 pb-20 pt-40 text-white lg:px-8 lg:pb-28">
+          <p id="hero-eyebrow" class="mb-5 text-xs uppercase tracking-[0.25em]">Pulmafotograafia Eestis ja mujal</p>
+          <h1 id="hero-title" class="max-w-3xl font-display text-5xl leading-tight md:text-7xl">Hetked, mis jäävad <em>teie omaks.</em></h1>
+          <a id="hero-cta" href="#broneeri" class="mt-9 inline-block bg-white px-6 py-3 text-sm font-medium text-ink transition hover:bg-blush">Räägime teie päevast</a>
+        </div>
+      </section>
+
+      <section id="galerii" class="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+        <div class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p class="text-xs uppercase tracking-[0.2em] text-sage">Valitud lood</p><h2 class="mt-3 font-display text-4xl md:text-5xl">Galerii</h2></div>
+          <div class="flex flex-wrap gap-2" role="group" aria-label="Galerii filtrid">
+            <button class="filter-btn bg-ink px-4 py-2 text-xs text-white" data-filter="all">Kõik</button><button class="filter-btn border border-ink px-4 py-2 text-xs" data-filter="pulmad">Pulmad</button><button class="filter-btn border border-ink px-4 py-2 text-xs" data-filter="paarid">Paarid</button><button class="filter-btn border border-ink px-4 py-2 text-xs" data-filter="detailid">Detailid</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+          <button class="gallery-item group col-span-2 aspect-[16/10] overflow-hidden md:col-span-2" data-category="pulmad" data-image="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1800&q=85" data-alt="Noorpaar looduses"><img loading="lazy" src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=80" alt="Noorpaar looduses" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></button>
+          <button class="gallery-item group aspect-square overflow-hidden" data-category="detailid" data-image="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1800&q=85" data-alt="Pulmasõrmused"><img loading="lazy" src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=700&q=80" alt="Pulmasõrmused" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></button>
+          <button class="gallery-item group aspect-square overflow-hidden" data-category="paarid" data-image="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=85" data-alt="Paar päikeseloojangus"><img loading="lazy" src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=700&q=80" alt="Paar päikeseloojangus" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></button>
+          <button class="gallery-item group aspect-[4/5] overflow-hidden" data-category="pulmad" data-image="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1800&q=85" data-alt="Pruut pulmakleidis"><img loading="lazy" src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=700&q=80" alt="Pruut pulmakleidis" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></button>
+          <button class="gallery-item group aspect-[4/5] overflow-hidden" data-category="detailid" data-image="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=85" data-alt="Pidulik lauakaunistus"><img loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=700&q=80" alt="Pidulik lauakaunistus" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></button>
+        </div>
+      </section>
+
+      <section id="teenused" class="bg-[#e8e2d9] px-6 py-24 lg:px-8"><div class="mx-auto max-w-7xl"><p class="text-xs uppercase tracking-[0.2em] text-sage">Teie lugu, teie tempo</p><h2 class="mt-3 font-display text-4xl md:text-5xl">Teenused ja hinnad</h2>
+        <div class="mt-12 grid gap-5 md:grid-cols-3">
+          <article class="bg-cream p-8"><p class="text-xs uppercase tracking-[0.15em] text-sage">Elopement</p><h3 class="mt-4 font-display text-3xl">Väike päev</h3><p class="mt-4 text-sm leading-6 text-ink/70">Kuni 4 tundi pildistamist, vähemalt 200 fotot ja veebigalerii.</p><p class="mt-8 font-display text-2xl">alates 750 €</p></article>
+          <article class="bg-ink p-8 text-white"><p class="text-xs uppercase tracking-[0.15em] text-blush">Kõige valitum</p><h3 class="mt-4 font-display text-3xl">Täielik lugu</h3><p class="mt-4 text-sm leading-6 text-white/70">10 tundi kohalolekut, vähemalt 600 fotot ja personaalsed nõuanded.</p><p class="mt-8 font-display text-2xl">alates 1 650 €</p></article>
+          <article class="bg-cream p-8"><p class="text-xs uppercase tracking-[0.15em] text-sage">Portree</p><h3 class="mt-4 font-display text-3xl">Kahekesi</h3><p class="mt-4 text-sm leading-6 text-ink/70">Rahulik paarisessioon teie lemmikpaigas, kuni 90 minutit.</p><p class="mt-8 font-display text-2xl">alates 280 €</p></article>
+        </div></div>
+      </section>
+
+      <section id="tagasiside" class="mx-auto max-w-4xl px-6 py-24 text-center"><p class="text-xs uppercase tracking-[0.2em] text-sage">Soojad sõnad</p><div class="relative mt-8 min-h-52">
+        <blockquote class="review absolute inset-0 transition-opacity duration-300"><p class="font-display text-3xl leading-relaxed md:text-4xl">“Pildid on täpselt nagu meie päev: soojad, vahetud ja päriselt meie moodi.”</p><footer class="mt-6 text-sm">— Liis &amp; Martin</footer></blockquote>
+        <blockquote class="review absolute inset-0 hidden transition-opacity duration-300"><p class="font-display text-3xl leading-relaxed md:text-4xl">“Kaamera ees oli nii lihtne olla. Me saime lihtsalt nautida oma inimesi ja päeva.”</p><footer class="mt-6 text-sm">— Anu &amp; Rasmus</footer></blockquote>
+        <blockquote class="review absolute inset-0 hidden transition-opacity duration-300"><p class="font-display text-3xl leading-relaxed md:text-4xl">“Iga detail ja pilk on jäädvustatud nii tundlikult. Need fotod on meie aare.”</p><footer class="mt-6 text-sm">— Kertu &amp; Taavi</footer></blockquote>
+      </div><div class="flex justify-center gap-3"><button class="review-dot h-2 w-2 rounded-full bg-ink" aria-label="Näita arvustust 1"></button><button class="review-dot h-2 w-2 rounded-full bg-ink/30" aria-label="Näita arvustust 2"></button><button class="review-dot h-2 w-2 rounded-full bg-ink/30" aria-label="Näita arvustust 3"></button></div>
+      </section>
+
+      <section id="broneeri" class="bg-sage px-6 py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2"><div class="text-white"><p class="text-xs uppercase tracking-[0.2em] text-cream">Teeme tuttavaks</p><h2 id="booking-title" class="mt-3 font-display text-5xl">Kas see on teie päev?</h2><p id="booking-text" class="mt-6 max-w-md leading-7 text-white/80">Kirjutage mõni sõna oma plaanidest. Vastan teile kahe tööpäeva jooksul.</p></div>
+        <form id="booking-form" class="grid gap-5" novalidate><div class="grid gap-5 sm:grid-cols-2"><label class="text-sm text-white">Nimi<input required name="name" class="mt-2 w-full border-b border-white/60 bg-transparent px-0 py-3 text-white outline-none focus:border-ink" /></label><label class="text-sm text-white">E-post<input required type="email" name="email" class="mt-2 w-full border-b border-white/60 bg-transparent px-0 py-3 text-white outline-none focus:border-ink" /></label></div><label class="text-sm text-white">Kuupäev<input required type="date" name="date" class="mt-2 w-full border-b border-white/60 bg-transparent px-0 py-3 text-white outline-none focus:border-ink" /></label><label class="text-sm text-white">Rääkige oma päevast<textarea required name="message" rows="3" class="mt-2 w-full border-b border-white/60 bg-transparent px-0 py-3 text-white outline-none focus:border-ink"></textarea></label><p id="form-status" class="hidden text-sm" role="status"></p><button class="w-fit bg-cream px-6 py-3 text-sm font-medium text-ink transition hover:bg-ink hover:text-white">Saada päring</button></form>
+      </div></section>
+    </main>
+    <footer class="bg-ink px-6 py-8 text-sm text-white/70 lg:px-8"><div class="mx-auto flex max-w-7xl flex-col justify-between gap-3 sm:flex-row"><p class="font-display text-lg text-white">Meie Päev</p><p>© <span id="year"></span> Meie Päev · Tallinn, Eesti</p><a class="hover:text-white" href="mailto:tere@meiepaev.ee">tere@meiepaev.ee</a></div></footer>
+
+    <dialog id="lightbox" class="m-auto max-h-[90vh] max-w-[90vw] bg-transparent p-0 backdrop:bg-black/80"><button id="lightbox-close" class="absolute right-2 top-2 z-10 bg-white px-3 py-2 text-xl" aria-label="Sulge foto">×</button><img id="lightbox-image" class="max-h-[90vh] max-w-[90vw] object-contain" alt="" /></dialog>
+    <script>
+      const menu = document.querySelector("#menu"), toggle = document.querySelector("#menu-toggle");
+      toggle.addEventListener("click", () => { menu.classList.toggle("hidden"); toggle.setAttribute("aria-expanded", String(!menu.classList.contains("hidden"))); });
+      document.querySelectorAll(".filter-btn").forEach(button => button.addEventListener("click", () => { document.querySelectorAll(".filter-btn").forEach(b => b.className = "filter-btn border border-ink px-4 py-2 text-xs"); button.className = "filter-btn bg-ink px-4 py-2 text-xs text-white"; document.querySelectorAll(".gallery-item").forEach(item => item.classList.toggle("hidden", button.dataset.filter !== "all" && item.dataset.category !== button.dataset.filter)); }));
+      const lightbox = document.querySelector("#lightbox"), image = document.querySelector("#lightbox-image"); let lightboxTrigger;
+      document.querySelectorAll(".gallery-item").forEach(item => item.addEventListener("click", () => { lightboxTrigger = item; image.src = item.dataset.image; image.alt = item.dataset.alt; lightbox.showModal(); }));
+      document.querySelector("#lightbox-close").addEventListener("click", () => lightbox.close());
+      lightbox.addEventListener("click", event => { if (event.target === lightbox) lightbox.close(); });
+      lightbox.addEventListener("close", () => lightboxTrigger?.focus());
+      const reviews = [...document.querySelectorAll(".review")], dots = [...document.querySelectorAll(".review-dot")]; let reviewIndex = 0, reviewTimer;
+      function showReview(index) { reviews.forEach((review, i) => review.classList.toggle("hidden", i !== index)); dots.forEach((dot, i) => { dot.classList.toggle("bg-ink", i === index); dot.classList.toggle("bg-ink/30", i !== index); }); reviewIndex = index; }
+      function startReviewTimer() { clearInterval(reviewTimer); reviewTimer = setInterval(() => showReview((reviewIndex + 1) % reviews.length), 6000); }
+      dots.forEach((dot, i) => dot.addEventListener("click", () => { showReview(i); startReviewTimer(); })); startReviewTimer();
+      document.querySelector("#booking-form").addEventListener("submit", async event => { event.preventDefault(); const form = event.currentTarget, status = document.querySelector("#form-status"); if (!form.checkValidity()) { form.reportValidity(); return; } try { const response = await fetch("/api/bookings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(new FormData(form))) }); if (!response.ok) throw new Error(); form.reset(); status.textContent = "Aitäh! Teie päring on saadetud."; status.className = "text-sm text-white"; } catch { status.textContent = "Päringu saatmine ebaõnnestus. Palun proovige uuesti."; status.className = "text-sm text-red-100"; } });
+      fetch("/api/content").then(response => response.ok ? response.json() : {}).then(content => { [["hero-eyebrow", "hero_eyebrow"], ["hero-title", "hero_title"], ["hero-cta", "hero_cta"], ["booking-title", "booking_title"], ["booking-text", "booking_text"]].forEach(([id, key]) => { if (content[key]) document.querySelector(`#${id}`).textContent = content[key]; }); }).catch(() => {});
+      document.querySelector("#year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
