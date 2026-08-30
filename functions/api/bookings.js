@@ -13,6 +13,6 @@ export async function onRequestPost({ request, env }) {
 
 export async function onRequestGet({ request, env }) {
   if (!(await isAuthenticated(request, env))) return unauthorized();
-  const { results } = await env.DB.prepare("SELECT id, name, email, event_date, message, created_at FROM bookings ORDER BY event_date, created_at DESC").all();
+  const { results } = await env.DB.prepare("SELECT id, name, email, event_date, message, created_at FROM bookings ORDER BY event_date ASC, created_at DESC").all();
   return Response.json(results);
 }

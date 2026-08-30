@@ -1,7 +1,7 @@
 const encoder = new TextEncoder();
 
 function encodeBase64(bytes) {
-  return btoa(String.fromCharCode(...bytes)).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/, "");
+  return btoa(Array.from(bytes, byte => String.fromCharCode(byte)).join("")).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/, "");
 }
 
 function decodeBase64(value) {
