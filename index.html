@@ -39,9 +39,9 @@
         <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85" alt="Paar pulmapäeval" class="absolute inset-0 h-full w-full object-cover opacity-75" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
         <div class="relative mx-auto w-full max-w-7xl px-6 pb-20 pt-40 text-white lg:px-8 lg:pb-28">
-          <p class="mb-5 text-xs uppercase tracking-[0.25em]">Pulmafotograafia Eestis ja mujal</p>
-          <h1 class="max-w-3xl font-display text-5xl leading-tight md:text-7xl">Hetked, mis jäävad <em>teie omaks.</em></h1>
-          <a href="#broneeri" class="mt-9 inline-block bg-white px-6 py-3 text-sm font-medium text-ink transition hover:bg-blush">Räägime teie päevast</a>
+          <p id="hero-eyebrow" class="mb-5 text-xs uppercase tracking-[0.25em]">Pulmafotograafia Eestis ja mujal</p>
+          <h1 id="hero-title" class="max-w-3xl font-display text-5xl leading-tight md:text-7xl">Hetked, mis jäävad <em>teie omaks.</em></h1>
+          <a id="hero-cta" href="#broneeri" class="mt-9 inline-block bg-white px-6 py-3 text-sm font-medium text-ink transition hover:bg-blush">Räägime teie päevast</a>
         </div>
       </section>
 
@@ -75,7 +75,7 @@
       </div><div class="flex justify-center gap-3"><button class="review-dot h-2 w-2 rounded-full bg-ink" aria-label="Näita arvustust 1"></button><button class="review-dot h-2 w-2 rounded-full bg-ink/30" aria-label="Näita arvustust 2"></button><button class="review-dot h-2 w-2 rounded-full bg-ink/30" aria-label="Näita arvustust 3"></button></div>
       </section>
 
-      <section id="broneeri" class="bg-sage px-6 py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2"><div class="text-white"><p class="text-xs uppercase tracking-[0.2em] text-cream">Teeme tuttavaks</p><h2 class="mt-3 font-display text-5xl">Kas see on teie päev?</h2><p class="mt-6 max-w-md leading-7 text-white/80">Kirjutage mõni sõna oma plaanidest. Vastan teile kahe tööpäeva jooksul.</p></div>
+      <section id="broneeri" class="bg-sage px-6 py-24 lg:px-8"><div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2"><div class="text-white"><p class="text-xs uppercase tracking-[0.2em] text-cream">Teeme tuttavaks</p><h2 id="booking-title" class="mt-3 font-display text-5xl">Kas see on teie päev?</h2><p id="booking-text" class="mt-6 max-w-md leading-7 text-white/80">Kirjutage mõni sõna oma plaanidest. Vastan teile kahe tööpäeva jooksul.</p></div>
         <form id="booking-form" class="grid gap-5" novalidate><div class="grid gap-5 sm:grid-cols-2"><label class="text-sm text-white">Nimi<input required name="name" class="mt-2 w-full border-b border-white/60 bg-transparent px-0 py-3 text-white outline-none focus:border-ink" /></label><label class="text-sm text-white">E-post<input required type="email" name="email" class="mt-2 w-full border-b border-white/60 bg-transparent px-0 py-3 text-white outline-none focus:border-ink" /></label></div><label class="text-sm text-white">Kuupäev<input required type="date" name="date" class="mt-2 w-full border-b border-white/60 bg-transparent px-0 py-3 text-white outline-none focus:border-ink" /></label><label class="text-sm text-white">Rääkige oma päevast<textarea required name="message" rows="3" class="mt-2 w-full border-b border-white/60 bg-transparent px-0 py-3 text-white outline-none focus:border-ink"></textarea></label><p id="form-status" class="hidden text-sm" role="status"></p><button class="w-fit bg-cream px-6 py-3 text-sm font-medium text-ink transition hover:bg-ink hover:text-white">Saada päring</button></form>
       </div></section>
     </main>
@@ -95,7 +95,8 @@
       function showReview(index) { reviews.forEach((review, i) => review.classList.toggle("hidden", i !== index)); dots.forEach((dot, i) => { dot.classList.toggle("bg-ink", i === index); dot.classList.toggle("bg-ink/30", i !== index); }); reviewIndex = index; }
       function startReviewTimer() { clearInterval(reviewTimer); reviewTimer = setInterval(() => showReview((reviewIndex + 1) % reviews.length), 6000); }
       dots.forEach((dot, i) => dot.addEventListener("click", () => { showReview(i); startReviewTimer(); })); startReviewTimer();
-      document.querySelector("#booking-form").addEventListener("submit", event => { event.preventDefault(); const form = event.currentTarget, status = document.querySelector("#form-status"); if (!form.checkValidity()) { form.reportValidity(); return; } const data = new FormData(form); const subject = encodeURIComponent(`Pulmapäring: ${data.get("name")}`); const body = encodeURIComponent(`Nimi: ${data.get("name")}\nE-post: ${data.get("email")}\nKuupäev: ${data.get("date")}\n\n${data.get("message")}`); status.textContent = "Aitäh! Avame teie e-posti programmi päringu saatmiseks."; status.className = "text-sm text-white"; form.reset(); window.location.href = `mailto:tere@meiepaev.ee?subject=${subject}&body=${body}`; setTimeout(() => status.className = "hidden text-sm", 5000); });
+      document.querySelector("#booking-form").addEventListener("submit", async event => { event.preventDefault(); const form = event.currentTarget, status = document.querySelector("#form-status"); if (!form.checkValidity()) { form.reportValidity(); return; } try { const response = await fetch("/api/bookings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(new FormData(form))) }); if (!response.ok) throw new Error(); form.reset(); status.textContent = "Aitäh! Teie päring on saadetud."; status.className = "text-sm text-white"; } catch { status.textContent = "Päringu saatmine ebaõnnestus. Palun proovige uuesti."; status.className = "text-sm text-red-100"; } });
+      fetch("/api/content").then(response => response.ok ? response.json() : {}).then(content => { [["hero-eyebrow", "hero_eyebrow"], ["hero-title", "hero_title"], ["hero-cta", "hero_cta"], ["booking-title", "booking_title"], ["booking-text", "booking_text"]].forEach(([id, key]) => { if (content[key]) document.querySelector(`#${id}`).textContent = content[key]; }); }).catch(() => {});
       document.querySelector("#year").textContent = new Date().getFullYear();
     </script>
   </body>
