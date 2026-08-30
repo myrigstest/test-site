@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@source "../index.html";
+@source "../admin/index.html";
+
+@theme {
+  --color-cream: #f8f5f0;
+  --color-ink: #28322a;
+  --color-sage: #889080;
+  --color-blush: #dbc9bf;
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
