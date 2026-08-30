@@ -17,4 +17,4 @@ Set these encrypted credential/session secrets in **Settings → Environment var
 - `ADMIN_PASSWORD_HASH` — PBKDF2-SHA-256 hash, 310,000 iterations, encoded as Base64URL.
 - `ADMIN_SESSION_SECRET` — a long random secret used to sign the session cookie.
 
-The admin dashboard is available at `/admin`. It shows reservations in the calendar and enables editing public landing-page text. Password data is intentionally not stored in `pass.xml`: any repository file deployed by Pages is public, so credentials must be protected as Cloudflare environment secrets.
+The admin dashboard is available at `/admin`. It shows reservations in the calendar and enables editing public landing-page text. Password data is intentionally not stored in the repository: files deployed by Pages are public, so credentials must be protected as Cloudflare environment secrets.
