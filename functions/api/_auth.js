@@ -14,15 +14,19 @@ async function sign(value, secret) {
   return encodeBase64(new Uint8Array(await crypto.subtle.sign("HMAC", key, encoder.encode(value))));
 }
 
+function constantTimeEquals(left, right) {
+  let difference = left.length ^ right.length;
+  const length = Math.max(left.length, right.length);
+  for (let index = 0; index < length; index += 1) difference |= (left.charCodeAt(index) || 0) ^ (right.charCodeAt(index) || 0);
+  return difference === 0;
+}
+
 export async function passwordMatches(password, env) {
   const key = await crypto.subtle.importKey("raw", encoder.encode(password), "PBKDF2", false, ["deriveBits"]);
   const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: decodeBase64(env.ADMIN_PASSWORD_SALT), iterations: 310000, hash: "SHA-256" }, key, 256);
   const actual = encodeBase64(new Uint8Array(bits));
   const expected = env.ADMIN_PASSWORD_HASH;
-  if (actual.length !== expected.length) return false;
-  let difference = 0;
-  for (let index = 0; index < actual.length; index += 1) difference |= actual.charCodeAt(index) ^ expected.charCodeAt(index);
-  return difference === 0;
+  return constantTimeEquals(actual, expected);
 }
 
 export async function createSession(env) {
@@ -36,7 +40,7 @@ export async function isAuthenticated(request, env) {
   if (!token) return false;
   const [name, expires, signature] = token.split(".");
   const value = `${name}.${expires}`;
-  return name === "admin" && Number(expires) > Date.now() && signature === await sign(value, env.ADMIN_SESSION_SECRET);
+  return name === "admin" && Number(expires) > Date.now() && constantTimeEquals(signature, await sign(value, env.ADMIN_SESSION_SECRET));
 }
 
 export function unauthorized() {

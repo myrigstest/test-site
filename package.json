@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://localhost:26831/myrigstest/test-site"
+    "url": "https://github.com/myrigstest/test-site.git"
   },
   "keywords": [],
   "author": "",
