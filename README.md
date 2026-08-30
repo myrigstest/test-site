@@ -1,5 +1,5 @@
 # Meie Päev
-
+!
 Responsive one-page starter site for a wedding photographer, built with HTML5, Tailwind CSS, and vanilla JavaScript.
 
 ## Local preview
