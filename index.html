@@ -91,9 +91,9 @@
       document.querySelector("#lightbox-close").addEventListener("click", () => lightbox.close());
       lightbox.addEventListener("click", event => { if (event.target === lightbox) lightbox.close(); });
       const reviews = [...document.querySelectorAll(".review")], dots = [...document.querySelectorAll(".review-dot")]; let reviewIndex = 0;
-      function showReview(index) { reviews.forEach((review, i) => review.classList.toggle("hidden", i !== index)); dots.forEach((dot, i) => dot.classList.toggle("bg-ink/30", i !== index)); reviewIndex = index; }
+      function showReview(index) { reviews.forEach((review, i) => review.classList.toggle("hidden", i !== index)); dots.forEach((dot, i) => { dot.classList.toggle("bg-ink", i === index); dot.classList.toggle("bg-ink/30", i !== index); }); reviewIndex = index; }
       dots.forEach((dot, i) => dot.addEventListener("click", () => showReview(i))); setInterval(() => showReview((reviewIndex + 1) % reviews.length), 6000);
-      document.querySelector("#booking-form").addEventListener("submit", event => { event.preventDefault(); const form = event.currentTarget, status = document.querySelector("#form-status"); if (!form.checkValidity()) { form.reportValidity(); return; } status.textContent = "Aitäh! Teie päring on saadetud."; status.className = "text-sm text-white"; form.reset(); });
+      document.querySelector("#booking-form").addEventListener("submit", event => { event.preventDefault(); const form = event.currentTarget, status = document.querySelector("#form-status"); if (!form.checkValidity()) { form.reportValidity(); return; } const data = new FormData(form); const subject = encodeURIComponent(`Pulmapäring: ${data.get("name")}`); const body = encodeURIComponent(`Nimi: ${data.get("name")}\nE-post: ${data.get("email")}\nKuupäev: ${data.get("date")}\n\n${data.get("message")}`); status.textContent = "Aitäh! Avame teie e-posti programmi päringu saatmiseks."; status.className = "text-sm text-white"; window.location.href = `mailto:tere@meiepaev.ee?subject=${subject}&body=${body}`; });
       document.querySelector("#year").textContent = new Date().getFullYear();
     </script>
   </body>
